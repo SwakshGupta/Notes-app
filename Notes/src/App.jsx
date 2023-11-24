@@ -27,6 +27,21 @@ function App() {
     },
   ]);
 
+  const Addnote = (text) => {
+    const date = new Date(); // this will create a new date object
+
+    const NewNote = {
+      id: nanoid(),
+
+      text: text,
+
+      date: date.toLocaleDateString(),
+    };
+
+    const newNotes = [...notes, NewNote]; // this will copy the notes and  replace it with new notes
+
+    setNotes(newNotes);
+  };
   return (
     <>
       <div className="bg-sky-200 text-black min-h-screen p-8">
@@ -34,10 +49,12 @@ function App() {
         <h1 className="text-3xl font-semibold mb-4">Notes</h1>
 
         {/* Render the NoteList component with the notes array as a prop */}
-        <NoteList notes={notes} />
+        <NoteList notes={notes} handleadd={Addnote} />
       </div>
     </>
   );
 }
 
 export default App;
+
+// we will pass a function to appnotes to update the state of add note jsx

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { nanoid } from "nanoid";
 import NoteList from "./assets/components/NoteList";
+import Search from "./assets/components/Search";
+import Header from "./assets/components/Header";
 
 function App() {
   // Initial state with an array of notes
@@ -42,14 +44,36 @@ function App() {
 
     setNotes(newNotes);
   };
+
+  const DeleteNote = (id) => {
+    const newNote = notes.filter((note) => note.id !== id); // it uses filter method to create new array  note id !=id if this conditin
+
+    //is true then note is included otherwise the note is removed
+
+    setNotes(newNote);
+  };
+
+  const [search, setSearch] = useState(""); // for the search button
+
+  const [dark, setDark] = useState(false); // this will set the dark mode
+
   return (
     <>
-      <div className="bg-sky-200 text-black min-h-screen p-8">
+      <div className="bg-white text-black min-h-screen p-8">
         {/* Heading for the notes section */}
-        <h1 className="text-3xl font-semibold mb-4">Notes</h1>
+
+        <Header DarkMode={setDark} />
+
+        <Search handleSearch={setSearch} />
 
         {/* Render the NoteList component with the notes array as a prop */}
-        <NoteList notes={notes} handleadd={Addnote} />
+        <NoteList
+          notes={notes.filter(
+            (note) => note.text.toLowerCase().includes(search) // what it filter all the notes and will return those which have search in it
+          )}
+          handleadd={Addnote}
+          handledel={DeleteNote}
+        />
       </div>
     </>
   );

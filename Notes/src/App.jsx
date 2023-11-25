@@ -59,21 +59,27 @@ function App() {
 
   return (
     <>
-      <div className="bg-white text-black min-h-screen p-8">
+      <div
+        className={`bg-${dark ? "black" : "white"} text-${
+          dark ? "white" : "black"
+        } min-h-screen p-8 transition-colors duration-500 ease-in-out`} // this will set the dark mode to the application if dark is ture then set bg-black and text white and vice versa
+      >
         {/* Heading for the notes section */}
 
-        <Header DarkMode={setDark} />
+        <div className={`${dark && "dark-mode"}`}>
+          <Header DarkMode={setDark} />
 
-        <Search handleSearch={setSearch} />
+          <Search handleSearch={setSearch} />
 
-        {/* Render the NoteList component with the notes array as a prop */}
-        <NoteList
-          notes={notes.filter(
-            (note) => note.text.toLowerCase().includes(search) // what it filter all the notes and will return those which have search in it
-          )}
-          handleadd={Addnote}
-          handledel={DeleteNote}
-        />
+          {/* Render the NoteList component with the notes array as a prop */}
+          <NoteList
+            notes={notes.filter(
+              (note) => note.text.toLowerCase().includes(search) // what it filter all the notes and will return those which have search in it
+            )}
+            handleadd={Addnote}
+            handledel={DeleteNote}
+          />
+        </div>
       </div>
     </>
   );

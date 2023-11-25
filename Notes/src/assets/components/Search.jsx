@@ -5,7 +5,7 @@ function Search({ handleSearch }) {
     <div className="mb-4">
       <label
         htmlFor="search"
-        className="block text-sm font-medium text-gray-700 m-5"
+        className="block text-sm font-medium  m-5"
       ></label>
       <input
         type="text"
